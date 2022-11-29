@@ -17,9 +17,11 @@ namespace MtgMeta.Models
 
         public Mazzo(string image, string name, int percentualeMeta)
         {           
+
             Image = image;
             Name = name;
             PercentualeMeta = percentualeMeta;
+
         }
         public Mazzo()
         {
