@@ -36,6 +36,7 @@ namespace MtgMeta.Controllers
             }
             if (mazzotrovato != null)
             {
+                
                 return View("Details", mazzotrovato);
             }
             else

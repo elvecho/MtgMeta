@@ -13,7 +13,7 @@ namespace MtgMeta.Models
         public string Name { get; set; }
         [Required]
         public int PercentualeMeta { get; set; }
-        public List<Carta> Carte { get; set; } 
+        public List<Carta> carte { get; set; } 
 
         public Mazzo(string image, string name, int percentualeMeta)
         {           

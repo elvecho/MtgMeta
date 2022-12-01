@@ -16,12 +16,11 @@
 			</p>
 			<p> Percentuale meta: @Model.PercentualeMeta</p>
 
-			<p>vedi lista:</p> 
-
-			@*@foreach(Mazzo MazzoNellaLista in Model){
-
-				<a class = "btn btn-info" href="/Mazzo/Details/@MazzoNellaLista.Id"> dettagli</a>
-			}*@
+			<h1>lista carte</h1>
+			<div> 
+				@Model.carte
+			</div>
+		  
 			
 				 <a class=" btn btn-primary " a> aggiungi carta</a>
 		</div>

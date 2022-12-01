@@ -9,7 +9,11 @@ namespace MtgMeta.Models
         public int Numero { get; set; }
         public int Prezzo { get; set; }
 
-        public int MazzoId { get; set; }
-        public Mazzo Mazzo { get; set; }
+        public List<Mazzo> mazzi { get; set; }
+
+        public Carta()
+        {
+
+        }
     }
 }
