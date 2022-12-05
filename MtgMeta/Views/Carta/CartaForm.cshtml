@@ -1,0 +1,38 @@
+﻿@using MtgMeta
+@model Carta
+<div class ="container">
+	<div class="row">
+<div class ="col 12">
+	<h1 class ="mt-3 mb-3 "> Nuova Carta</h1>
+
+
+<form method ="post" action= "@Url.Action("Create", "CartaForm")">
+	@Html.AntiForgeryToken()
+	<div class = "mb-3 ">
+		Nome:
+		<input asp-for = "Nome" class=" d-block w-100" />
+		<span asp-validation-for = "Nome" class = "text-danger "></span>
+
+	</div>
+	<div class = "mb-3 ">
+		Numero:
+		<input asp-for = "Numero" class=" d-block w-100" />
+		<span asp-validation-for = "Numero" class = "text-danger"></span>
+</div>
+
+
+<div class = "mb-3 ">
+		Prezzo:
+		<textarea asp-for = "Prezzo" class=" d-block w-100"></textarea>
+		<span asp-validation-for = "Prezzo" class = "text-danger"></span>
+		</div>
+
+		<div class = "text-end">
+			<input type="submit" class="btn btn-primary " value = "salva">
+		</div>
+</form>
+
+
+</div>
+</div>
+</div>

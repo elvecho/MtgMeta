@@ -10,8 +10,8 @@ using MtgMeta.Data;
 namespace MtgMeta.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221130100453_unaltra")]
-    partial class unaltra
+    [Migration("20221205085127_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

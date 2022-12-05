@@ -10,8 +10,8 @@ using MtgMeta.Data;
 namespace MtgMeta.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221129103547_Initial")]
-    partial class Initial
+    [Migration("20221205084738_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,20 +19,33 @@ namespace MtgMeta.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
+            modelBuilder.Entity("CartaMazzo", b =>
+                {
+                    b.Property<string>("carteNome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("mazziMazzoId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("carteNome", "mazziMazzoId");
+
+                    b.HasIndex("mazziMazzoId");
+
+                    b.ToTable("CartaMazzo");
+                });
+
             modelBuilder.Entity("MtgMeta.Models.Carta", b =>
                 {
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MazzoId")
+                    b.Property<int>("Numero")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Prezzo")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Nome");
-
-                    b.HasIndex("MazzoId");
 
                     b.ToTable("Carte");
                 });
@@ -59,20 +72,19 @@ namespace MtgMeta.Migrations
                     b.ToTable("Mazzi");
                 });
 
-            modelBuilder.Entity("MtgMeta.Models.Carta", b =>
+            modelBuilder.Entity("CartaMazzo", b =>
                 {
-                    b.HasOne("MtgMeta.Models.Mazzo", "Mazzo")
-                        .WithMany("Carte")
-                        .HasForeignKey("MazzoId")
+                    b.HasOne("MtgMeta.Models.Carta", null)
+                        .WithMany()
+                        .HasForeignKey("carteNome")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Mazzo");
-                });
-
-            modelBuilder.Entity("MtgMeta.Models.Mazzo", b =>
-                {
-                    b.Navigation("Carte");
+                    b.HasOne("MtgMeta.Models.Mazzo", null)
+                        .WithMany()
+                        .HasForeignKey("mazziMazzoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
