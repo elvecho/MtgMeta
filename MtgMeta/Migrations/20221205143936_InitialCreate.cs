@@ -14,13 +14,15 @@ namespace MtgMeta.Migrations
                 name: "Carte",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Numero = table.Column<int>(type: "INTEGER", nullable: false),
                     Prezzo = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carte", x => x.Nome);
+                    table.PrimaryKey("PK_Carte", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,17 +44,17 @@ namespace MtgMeta.Migrations
                 name: "CartaMazzo",
                 columns: table => new
                 {
-                    carteNome = table.Column<string>(type: "TEXT", nullable: false),
+                    carteId = table.Column<int>(type: "INTEGER", nullable: false),
                     mazziMazzoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartaMazzo", x => new { x.carteNome, x.mazziMazzoId });
+                    table.PrimaryKey("PK_CartaMazzo", x => new { x.carteId, x.mazziMazzoId });
                     table.ForeignKey(
-                        name: "FK_CartaMazzo_Carte_carteNome",
-                        column: x => x.carteNome,
+                        name: "FK_CartaMazzo_Carte_carteId",
+                        column: x => x.carteId,
                         principalTable: "Carte",
-                        principalColumn: "Nome",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CartaMazzo_Mazzi_mazziMazzoId",
@@ -66,6 +68,12 @@ namespace MtgMeta.Migrations
                 name: "IX_CartaMazzo_mazziMazzoId",
                 table: "CartaMazzo",
                 column: "mazziMazzoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carte_Nome",
+                table: "Carte",
+                column: "Nome",
+                unique: true);
         }
 
         /// <inheritdoc />

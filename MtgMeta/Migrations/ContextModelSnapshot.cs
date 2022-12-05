@@ -18,13 +18,13 @@ namespace MtgMeta.Migrations
 
             modelBuilder.Entity("CartaMazzo", b =>
                 {
-                    b.Property<string>("carteNome")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("carteId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("mazziMazzoId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("carteNome", "mazziMazzoId");
+                    b.HasKey("carteId", "mazziMazzoId");
 
                     b.HasIndex("mazziMazzoId");
 
@@ -33,7 +33,12 @@ namespace MtgMeta.Migrations
 
             modelBuilder.Entity("MtgMeta.Models.Carta", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Numero")
@@ -42,7 +47,10 @@ namespace MtgMeta.Migrations
                     b.Property<int>("Prezzo")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Nome");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nome")
+                        .IsUnique();
 
                     b.ToTable("Carte");
                 });
@@ -73,7 +81,7 @@ namespace MtgMeta.Migrations
                 {
                     b.HasOne("MtgMeta.Models.Carta", null)
                         .WithMany()
-                        .HasForeignKey("carteNome")
+                        .HasForeignKey("carteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

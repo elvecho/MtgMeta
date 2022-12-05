@@ -23,6 +23,14 @@
         <h1>Mtg meta Pauper</h1>
         <p>mazzi con più winRate</p>
         </header>
+        <div class="col-12">
+                <form asp-controller="Mazzo" asp-action="Index" method="get">
+                    <p>
+                        Ricerca: <input type="text" name="SearchString" />
+                        <input type="submit" value="Filter" />
+                    </p>
+                </form>
+                </div>
 </div>
    
 

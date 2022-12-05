@@ -46,7 +46,98 @@ namespace MtgMeta.Controllers
                 db.Add(CartaDaCreare);
                 db.SaveChanges();
             }
-            return RedirectToAction("CardDatabase");
+            return RedirectToAction("GetCarte");
         }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Carta cartaTrovato = null;
+
+            using (Context db = new Context())
+            {
+                  
+                cartaTrovato = db.Carte.Where(carta => carta.Id == id).FirstOrDefault();  //restituirà il primo elemento trovato
+            }
+            if (cartaTrovato != null)
+            {
+
+                return View("Details", cartaTrovato);
+            }
+            else
+            {
+                return NotFound("la carta non è stata trovata");
+            }
+        }
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            Carta CartaDaModificare = null;
+            using (Context db = new Context())
+            {
+                
+                CartaDaModificare = db.Carte.Where(carta => carta.Id == id).FirstOrDefault();
+            }
+            if (CartaDaModificare == null)
+            {
+                return NotFound();
+
+            }
+            else
+            {
+                return View("Update", CartaDaModificare);
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Update(int id, Carta Modello)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Update", Modello);
+            }
+            else
+            {
+               Carta CartaDaModificare = null;
+                using (Context db = new Context())
+                {
+                    CartaDaModificare = db.Carte.Where(carta => carta.Id == id).FirstOrDefault();
+
+                    if (CartaDaModificare != null)
+                    {
+                        CartaDaModificare.Nome = Modello.Nome;
+                        CartaDaModificare.Prezzo = Modello.Prezzo;
+                        CartaDaModificare.Numero = Modello.Numero;
+
+                        db.SaveChanges();
+                        return RedirectToAction("GetCarte");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            using (Context db = new Context())
+            {
+               
+                Carta CartaDaRimuovere = db.Carte.Where(carta => carta.Id == id).FirstOrDefault();
+                if (CartaDaRimuovere != null)
+                {
+                    db.Carte.Remove(CartaDaRimuovere);
+                    db.SaveChanges();
+                    return RedirectToAction("GetCarte");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
     }
 }
