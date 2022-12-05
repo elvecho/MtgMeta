@@ -7,22 +7,30 @@ namespace MtgMeta.Controllers
 {
     public class CartaController : Controller
     {
+
         [HttpGet]
-        public IActionResult Index(string nomecarta)
+        public IActionResult GetCarte(string SearchString)
         {
             List<Carta> carte = new List<Carta>();
+
             using (Context db = new Context())
             {
-
-                carte = db.Carte.Where(carta => carta.Nome == nomecarta).ToList();
-
+                if (SearchString != null)
+                {
+                    carte = db.Carte.Where(carte => carte.Nome.Contains(SearchString)).ToList<Carta>();
+                }
+                else
+                {
+                    carte = db.Carte.ToList<Carta>();
+                }
             }
-            return View("Details", carte);
+            return View("CardDatabase", carte);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
-            return View("CartaForm");
+            return View("Carta");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -30,7 +38,7 @@ namespace MtgMeta.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CartaForm", NuovaCarta);
+                return View("Carta", NuovaCarta);
             }
             using(Context db = new Context())
             {

@@ -26,7 +26,7 @@
 <div>
     <h1 class="text-center">lista carte: </h1>
     <a class=" btn btn-primary "
-    href= "@Url.Action("Create", "CartaForm")">
+    href= "@Url.Action("Create", "Carta")">
     aggiungi la tua carta 
 </a>
 </div>
@@ -37,7 +37,8 @@
     }
     else
     {
-         <div class="container-fluid text-center " >
+         <div class="container-fluid text-center " method ="get" action= "@Url.Action("GetCarte", "Carta")">
+	@Html.AntiForgeryToken()>
         
         <div class="row p-5 text-center">
                 @foreach(Carta CartaNellaLista in Model)
